@@ -47,13 +47,19 @@ npx playwright test tests/%SpecFile%  --project=%Browser% --headed
 SpecFile Parameters
 -------------------
 example.spec.js
+
 handleWindows.spec.js
+
 Please provide which specific file you want to run
 
 Browser Parameters
 -------------------
 chromium
+
 firefox
+
 webkit
+
 all
+
 Please select which browser you want to use for execution
