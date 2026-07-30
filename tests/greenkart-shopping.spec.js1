@@ -1,0 +1,27 @@
+const { test, expect } = require('@playwright/test');
+
+test.describe('GreenKart shopping flow', () => {
+  test('allows a user to add products, review the cart, and complete checkout', async ({ page }) => {
+    await page.goto('https://rahulshettyacademy.com/seleniumPractise/#/', { waitUntil: 'domcontentloaded' });
+
+    await expect(page.locator('.brand.greenLogo')).toBeVisible();
+    await expect(page).toHaveTitle(/GreenKart/i);
+
+    const products = page.locator('.product');
+    await expect(products.first()).toBeVisible();
+
+    const firstProduct = products.first();
+    await firstProduct.locator('button').filter({ hasText: /ADD TO CART/i }).click();
+    await expect(page.locator('.cart-info')).toContainText('1');
+
+    const secondProduct = products.nth(1);
+    await expect(secondProduct).toBeVisible();
+    await secondProduct.locator('button').filter({ hasText: /ADD TO CART/i }).click();
+    await expect(page.locator('.cart-info')).toContainText('2');
+
+    await page.locator('a.cart').click();
+    await expect(page.getByText('Proceed to checkout')).toBeVisible();
+    await page.getByText('Proceed to checkout').click();
+    await expect(page.getByRole('button', { name: /Place Order/i })).toBeVisible();
+  });
+});

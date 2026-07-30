@@ -1,0 +1,22 @@
+const { test, expect } = require('@playwright/test');
+
+
+
+test('Verify Application title', async ({ page }) => {
+
+    await page.goto('https://www.google.com/', {
+        waitUntil: 'domcontentloaded'
+    });
+
+    const url = await page.url();
+    const title = await page.title();
+    console.log("Url is "  + url);
+    console.log("Title is " + title);
+
+    await expect(page).toHaveTitle(/Google/i);
+
+    const searchBox = page.locator('input[name="q"]');
+
+    
+});
+
